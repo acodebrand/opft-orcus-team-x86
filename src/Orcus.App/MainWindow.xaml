@@ -1,0 +1,96 @@
+<Window x:Class="Orcus.App.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OPTF ORCUS TEAM" Width="1220" Height="840" MinWidth="700" MinHeight="520" Background="{DynamicResource Bg}" Foreground="{DynamicResource Ink}" FontFamily="Segoe UI" FontSize="12" WindowStartupLocation="CenterScreen" Loaded="WindowLoaded" SizeChanged="WindowSizeChanged">
+  <Grid Background="{DynamicResource Bg}" UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Grid.ColumnDefinitions><ColumnDefinition x:Name="SidebarColumn" Width="208"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+    <Border Background="{DynamicResource Panel}" BorderBrush="{DynamicResource Line}" BorderThickness="0,0,1,0">
+      <Grid Margin="16,24,16,18"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel Margin="12,0,0,30"><TextBlock Text="OPTF" FontSize="25" FontWeight="SemiBold" Foreground="{DynamicResource Accent}"/><TextBlock Text="CONTROL DE WINDOWS" Style="{StaticResource Eyebrow}" Margin="0,5,0,0"/></StackPanel>
+        <ScrollViewer Grid.Row="1"><StackPanel>
+          <Button x:Name="NavHome" Style="{StaticResource Nav}" Content="◈   Inicio" Tag="home" Click="Navigate"/>
+          <Button x:Name="NavProfiles" Style="{StaticResource Nav}" Content="≡   Perfiles" Tag="profiles" Click="Navigate"/>
+          <Button x:Name="NavExtras" Style="{StaticResource Nav}" Content="＋   Extras" Tag="extras" Click="Navigate"/>
+          <Button x:Name="NavDeveloper" Style="{StaticResource Nav}" Content="⌘   Desarrollador" Tag="developer" Click="Navigate"/>
+          <Button x:Name="NavRecovery" Style="{StaticResource Nav}" Content="↶   Recuperación" Tag="recovery" Click="Navigate"/>
+          <Border Height="1" Background="{DynamicResource Line}" Margin="12,22"/>
+          <TextBlock Text="APARIENCIA" Style="{StaticResource Eyebrow}" Margin="12,0,0,10"/>
+          <ComboBox x:Name="ThemeBox" Margin="3,0" SelectionChanged="ThemeChanged" SelectedIndex="0" AutomationProperties.Name="Tema visual"><ComboBoxItem Content="Default"/><ComboBoxItem Content="Obsidiana"/><ComboBoxItem Content="Perla"/></ComboBox>
+        </StackPanel></ScrollViewer>
+        <StackPanel Grid.Row="2" Margin="8,16,8,0"><TextBlock Text="●  EJECUCIÓN LOCAL" Foreground="{DynamicResource Good}" FontSize="9.5"/><TextBlock x:Name="PermissionText" Style="{StaticResource Small}" Margin="0,9,0,10"/><Button x:Name="AdminButton" Content="Abrir como administrador" FontSize="10.5" Padding="8,9" Click="Elevate"/><TextBlock Text="ORCUS TEAM   /   1.5" FontSize="9" Foreground="{DynamicResource Muted}" Margin="0,16,0,0"/></StackPanel>
+      </Grid>
+    </Border>
+    <Grid Grid.Column="1" Margin="28,22,28,18">
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <Grid Margin="0,0,0,20"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Center"><TextBlock Text="OPTF  /  ESPACIO DE TRABAJO" Style="{StaticResource Eyebrow}"/><TextBlock x:Name="PageTitle" Text="Inicio" FontSize="24" FontWeight="SemiBold" Margin="0,5,0,0"/></StackPanel>
+        <StackPanel Grid.Column="1" Margin="12,0,0,0" HorizontalAlignment="Right"><TextBlock x:Name="Wordmark" Text="Orcus Team" FontFamily="{StaticResource BrandFont}" FontWeight="Black" FontSize="23" Foreground="{DynamicResource Muted}" Opacity="0.65" HorizontalAlignment="Right"/><Button x:Name="ScanButton" Content="↻  Analizar equipo" Click="ScanClick" Style="{StaticResource Quiet}" Padding="9,6" Margin="0,4,0,0"/></StackPanel>
+      </Grid>
+      <ScrollViewer x:Name="MainScroll" Grid.Row="1" PanningMode="VerticalOnly">
+        <StackPanel x:Name="PageContent"><StackPanel.RenderTransform><TranslateTransform x:Name="PageOffset"/></StackPanel.RenderTransform>
+          <StackPanel x:Name="HomePanel">
+            <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+              <StackPanel>
+                <TextBlock Text="01   /   ANTES DE MODIFICAR WINDOWS" Style="{StaticResource Eyebrow}" Foreground="{DynamicResource Accent}"/>
+                <TextBlock Text="Punto de restauración" FontSize="20" FontWeight="SemiBold" Margin="0,9,0,8"/>
+                <TextBlock Text="Guarda opcionalmente un estado de Windows al que puedas volver. Puedes aplicar optimizaciones sin crear un punto." Style="{StaticResource Small}" MaxWidth="680" HorizontalAlignment="Left"/>
+                <WrapPanel Margin="0,16,0,6"><Button x:Name="CreatePointButton" Content="＋  Crear punto de restauración" Style="{StaticResource Primary}" Click="CreatePointClick" Margin="0,0,10,8"/><Button x:Name="VerifyPointButton" Content="Verificar punto reciente" Click="VerifyPointClick" Margin="0,0,8,8"/><Button Content="Configurar protección" Style="{StaticResource Quiet}" Click="OpenProtection" Margin="0,0,0,8"/></WrapPanel>
+                <Border Background="{DynamicResource Raised}" CornerRadius="6" Padding="12,10"><TextBlock x:Name="ProtectionStatus" Text="Sin punto verificado. Todavía no se ha modificado Windows." Style="{StaticResource Small}"/></Border>
+                <TextBlock Text="La protección debe estar habilitada en la unidad de Windows. Un punto de restauración no sustituye el respaldo de tus archivos." Style="{StaticResource Small}" FontSize="10.5" Margin="0,10,0,0"/>
+              </StackPanel>
+            </Border>
+            <Grid Margin="0,4,0,12"><TextBlock Text="02   /   ESTADO DEL EQUIPO" Style="{StaticResource Eyebrow}"/><TextBlock x:Name="SampleLabel" Text="Sin analizar" Style="{StaticResource Eyebrow}" HorizontalAlignment="Right"/></Grid>
+            <UniformGrid Columns="3" Margin="0,0,0,16">
+              <Border Style="{StaticResource Card}" Padding="18,16" Margin="0,0,10,0"><StackPanel><TextBlock Text="MEMORIA" Style="{StaticResource Eyebrow}"/><TextBlock x:Name="RamMetric" Text="— GB" FontSize="25" FontWeight="SemiBold" Margin="0,10,0,4"/><TextBlock x:Name="RamDetail" Text="Sin datos del equipo" Style="{StaticResource Small}"/></StackPanel></Border>
+              <Border Style="{StaticResource Card}" Padding="18,16" Margin="0,0,10,0"><StackPanel><TextBlock Text="CPU" Style="{StaticResource Eyebrow}"/><TextBlock x:Name="CpuMetric" Text="— %" FontSize="25" FontWeight="SemiBold" Margin="0,10,0,4"/><TextBlock Text="Carga en el análisis" Style="{StaticResource Small}"/></StackPanel></Border>
+              <Border Style="{StaticResource Card}" Padding="18,16"><StackPanel><TextBlock Text="PROCESOS" Style="{StaticResource Eyebrow}"/><TextBlock x:Name="ProcessMetric" Text="—" FontSize="25" FontWeight="SemiBold" Margin="0,10,0,4"/><TextBlock Text="En ejecución" Style="{StaticResource Small}"/></StackPanel></Border>
+            </UniformGrid>
+            <Border Style="{StaticResource Card}"><StackPanel><TextBlock x:Name="RecommendationText" Text="Analizando el equipo…" FontSize="16" FontWeight="SemiBold"/><TextBlock Text="Elige una base, personaliza la lista y pulsa Aplicar cambios." Style="{StaticResource Small}" Margin="0,7,0,14"/><WrapPanel><Button Content="Configurar perfiles  →" Tag="profiles" Click="Navigate" Margin="0,0,10,0"/><Button Content="Ver inventario" Style="{StaticResource Quiet}" Click="ShowInventory"/></WrapPanel></StackPanel></Border>
+          </StackPanel>
+          <StackPanel x:Name="OptionsPanel" Visibility="Collapsed">
+            <Border Style="{StaticResource Card}" Margin="0,0,0,20"><StackPanel>
+              <TextBlock x:Name="OptionsHeading" Text="Configuración del perfil" FontSize="18" FontWeight="SemiBold"/>
+              <TextBlock x:Name="OptionsIntro" Style="{StaticResource Small}" Margin="0,7,0,16"/>
+              <Border x:Name="AppliedBanner" Visibility="Collapsed" Background="{DynamicResource Selected}" BorderBrush="{DynamicResource Good}" BorderThickness="1" CornerRadius="7" Padding="12,10" Margin="0,0,0,14"><StackPanel><TextBlock x:Name="AppliedTitle" Text="✓  Cambios aplicados" FontWeight="SemiBold" Foreground="{DynamicResource Good}"/><TextBlock x:Name="AppliedDetail" Style="{StaticResource Small}" Margin="0,4,0,0"/></StackPanel></Border>
+              <WrapPanel x:Name="ProfileControls">
+                <StackPanel Margin="0,0,16,8"><TextBlock Text="PERFIL BASE" Style="{StaticResource Eyebrow}" Margin="0,0,0,7"/><ComboBox x:Name="ProfileBox" Width="175" SelectionChanged="PresetChanged" SelectedIndex="0" AutomationProperties.Name="Perfil"><ComboBoxItem Content="Normal"/><ComboBoxItem Content="Media"/><ComboBoxItem Content="Ultra"/><ComboBoxItem Content="Ultra Max"/></ComboBox></StackPanel>
+                <StackPanel Margin="0,0,16,8"><TextBlock Text="USO DEL EQUIPO" Style="{StaticResource Eyebrow}" Margin="0,0,0,7"/><ComboBox x:Name="UsageBox" Width="188" SelectionChanged="PresetChanged" SelectedIndex="0" AutomationProperties.Name="Uso"><ComboBoxItem Content="Uso diario"/><ComboBoxItem Content="Gaming"/><ComboBoxItem Content="Programación"/><ComboBoxItem Content="Diseño y edición"/></ComboBox></StackPanel>
+                <Button Content="Restablecer selección" Style="{StaticResource Quiet}" Click="ResetSelection" VerticalAlignment="Bottom" Margin="0,0,0,8"/>
+              </WrapPanel>
+              <TextBlock x:Name="ProfileHint" Style="{StaticResource Small}" Margin="0,5,0,12"/>
+              <StackPanel x:Name="DeveloperControls" Visibility="Collapsed">
+                <Border BorderBrush="{DynamicResource Warning}" BorderThickness="2,0,0,0" Padding="12,2" Margin="0,0,0,14"><TextBlock Text="Desactivar Update retrasa los parches y puede afectar Store, drivers y componentes opcionales. Elige solo un método. El perfil Programación no activa estas opciones." Foreground="{DynamicResource Warning}" FontSize="11.5"/></Border>
+                <CheckBox x:Name="DeveloperUnlock" Checked="UnlockChanged" Unchecked="UnlockChanged" Margin="0,0,0,12"><TextBlock Text="Entiendo los efectos y quiero habilitar las opciones experimentales."/></CheckBox>
+                <Button Content="Abrir Windows Update" HorizontalAlignment="Left" Tag="ms-settings:windowsupdate" Click="OpenSettings"/>
+              </StackPanel>
+              <WrapPanel x:Name="ExtrasTools" Visibility="Collapsed"><Button Content="Apps de inicio" Tag="ms-settings:startupapps" Click="OpenSettings" Margin="0,0,8,8"/><Button Content="Desinstalar apps" Tag="ms-settings:appsfeatures" Click="OpenSettings" Margin="0,0,8,8"/><Button Content="Almacenamiento" Tag="ms-settings:storagesense" Click="OpenSettings" Margin="0,0,8,8"/><Button Content="Energía" Tag="ms-settings:powersleep" Click="OpenSettings" Margin="0,0,8,8"/></WrapPanel>
+            </StackPanel></Border>
+            <TextBlock x:Name="ListHeading" Text="Opciones incluidas en el perfil" FontSize="17" FontWeight="SemiBold" Margin="0,0,0,6"/>
+            <TextBlock Text="Las tarjetas con borde de color están seleccionadas. Puedes activar o quitar opciones; sus descripciones explican qué cambia y qué función se pierde." Style="{StaticResource Small}" Margin="0,0,0,12"/>
+            <Grid Margin="0,0,0,14"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+              <Grid><TextBox x:Name="SearchBox" TextChanged="SearchChanged" ToolTip="Buscar por nombre, servicio o descripción" AutomationProperties.Name="Buscar opciones"/><TextBlock Text="Buscar opción o servicio…" Margin="13,9,0,0" Foreground="{DynamicResource Muted}" IsHitTestVisible="False"><TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value=""><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock></Grid>
+              <Button Grid.Column="1" Content="Quitar selección" Style="{StaticResource Quiet}" Click="ClearSelection" Margin="10,0,0,0"/>
+            </Grid>
+            <ItemsControl x:Name="OptionList"><ItemsControl.ItemTemplate><DataTemplate>
+              <Border Style="{StaticResource OptionCard}"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="30"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" IsEnabled="{Binding Enabled}" VerticalAlignment="Top" Margin="0,1,0,0" AutomationProperties.Name="{Binding Tweak.Title}"/>
+                <StackPanel Grid.Column="1"><DockPanel><TextBlock Text="{Binding SelectionLabel}" Foreground="{DynamicResource Accent}" FontSize="9" DockPanel.Dock="Right" Margin="12,3,0,0"/><TextBlock Text="{Binding Tweak.Title}" FontSize="13" FontWeight="SemiBold"/></DockPanel>
+                  <TextBlock Text="{Binding Tweak.Description}" Style="{StaticResource Small}" Margin="0,6,0,4"/>
+                  <TextBlock Text="{Binding Tweak.Impact}" Foreground="{DynamicResource Warning}" FontSize="11.5" LineHeight="17"/>
+                  <Expander Header="Detalles técnicos y estado actual  +" Margin="0,3,0,0"><StackPanel><TextBlock Text="{Binding Tweak.Target}" Style="{StaticResource Small}" FontFamily="Consolas" FontSize="10.5"/><TextBlock Text="{Binding Availability}" Foreground="{DynamicResource Muted}" FontSize="11" Margin="0,5,0,0"/><TextBlock Text="{Binding Tweak.Risk}" Foreground="{DynamicResource Muted}" FontSize="9" Margin="0,5,0,0"/></StackPanel></Expander>
+                </StackPanel>
+              </Grid></Border>
+            </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+            <TextBlock x:Name="EmptyOptions" Text="No hay opciones que coincidan con esta búsqueda." Style="{StaticResource Small}" Visibility="Collapsed"/>
+          </StackPanel>
+          <StackPanel x:Name="RecoveryPanel" Visibility="Collapsed">
+            <Border Style="{StaticResource Card}" Margin="0,0,0,18"><StackPanel><TextBlock Text="Deshacer cambios de OPTF" FontSize="20" FontWeight="SemiBold"/><TextBlock Style="{StaticResource Small}" Margin="0,10,0,16" Text="Restaura los valores guardados por esta aplicación, empezando por la operación más reciente. Los puntos de restauración de Windows se preparan en Inicio."/><WrapPanel><Button x:Name="RestoreButton" Content="↶  Deshacer última operación" Style="{StaticResource Primary}" Click="RestoreClick" Margin="0,0,10,8"/><Button Content="Abrir respaldos" Click="OpenBackups" Margin="0,0,10,8"/><Button Content="Ir a Inicio" Style="{StaticResource Quiet}" Tag="home" Click="Navigate" Margin="0,0,0,8"/></WrapPanel></StackPanel></Border>
+            <TextBlock Text="HISTORIAL DE CAMBIOS" Style="{StaticResource Eyebrow}" Margin="0,0,0,10"/><TextBox x:Name="HistoryText" IsReadOnly="True" TextWrapping="Wrap" MinHeight="240" VerticalScrollBarVisibility="Auto"/>
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+      <Border Grid.Row="2" BorderBrush="{DynamicResource Line}" BorderThickness="0,1,0,0" Padding="0,14,0,0" Margin="0,16,0,0"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Center" Margin="0,0,14,0"><TextBlock x:Name="SelectionText" Text="0 opciones seleccionadas" FontWeight="SemiBold"/><TextBlock x:Name="StatusText" Text="Iniciando análisis automático del equipo…" Style="{StaticResource Small}" Margin="0,4,0,0"/><ProgressBar x:Name="BusyBar" IsIndeterminate="True" Height="3" Visibility="Collapsed" Margin="0,7,0,0" Foreground="{DynamicResource Accent}" Background="{DynamicResource Raised}"/></StackPanel>
+        <Button x:Name="ApplyButton" Grid.Column="1" Content="Aplicar cambios  →" Style="{StaticResource Primary}" Click="ApplyClick" VerticalAlignment="Center"/>
+      </Grid></Border>
+    </Grid>
+  </Grid>
+</Window>

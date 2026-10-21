@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <SolidColorBrush x:Key="Bg" Color="#101115"/>
+  <SolidColorBrush x:Key="Panel" Color="#17181E"/>
+  <SolidColorBrush x:Key="Raised" Color="#202129"/>
+  <SolidColorBrush x:Key="Line" Color="#30313C"/>
+  <SolidColorBrush x:Key="Ink" Color="#C8C9D2"/>
+  <SolidColorBrush x:Key="Muted" Color="#9698AB"/>
+  <SolidColorBrush x:Key="Accent" Color="#AE99D8"/>
+  <SolidColorBrush x:Key="AccentInk" Color="#19141F"/>
+  <SolidColorBrush x:Key="Good" Color="#84B8A2"/>
+  <SolidColorBrush x:Key="Warning" Color="#C9A27B"/>
+  <SolidColorBrush x:Key="Selected" Color="#272234"/>
+  <SolidColorBrush x:Key="Hover" Color="#30303D"/>
+  <FontFamily x:Key="BrandFont">pack://application:,,,/Assets/Fonts/#Grenze Gotisch</FontFamily>
+</ResourceDictionary>

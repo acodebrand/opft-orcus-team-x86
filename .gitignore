@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+artifacts/
+.vs/
+*.user
+
+# Cachés locales de compilación
+.nuget/
+.tmp/
+
+# Binarios de Release; se publican como assets de GitHub Releases
+release/

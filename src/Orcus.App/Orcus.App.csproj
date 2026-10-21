@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>OPTF.OrcusTeam</AssemblyName>
+    <Version>1.5.0</Version>
+    <Company>Orcus Team</Company>
+    <Product>OPTF Orcus Team</Product>
+    <Description>Herramienta local de configuración y optimización de Windows.</Description>
+    <ApplicationIcon>Assets/Brand/orcus-team.ico</ApplicationIcon>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Orcus.Core/Orcus.Core.csproj" />
+    <Resource Include="Assets/Fonts/*.ttf" />
+    <Resource Include="Assets/Brand/orcus-team-mark.png" />
+    <EmbeddedResource Include="Services/*.ps1" />
+  </ItemGroup>
+</Project>
